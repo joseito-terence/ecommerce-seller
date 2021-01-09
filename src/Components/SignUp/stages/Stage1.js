@@ -14,13 +14,13 @@ function Stage1({ currentStep, state, handleChange }) {
       <div className="row g-2">
         <div className="col">
           <div className="form-floating mb-1">
-            <input type="text" className="form-control" id="fname" placeholder="First Name" required/>
+            <input type="text" className="form-control" id="fname" placeholder="First Name" onChange={handleChange} value={state.fname} required/>
             <label htmlFor="fname">First Name</label>
           </div>
         </div>
         <div className="col">
           <div className="form-floating mb-1">
-            <input type="text" className="form-control" id="lname" placeholder="Last Name" required />
+            <input type="text" className="form-control" id="lname" placeholder="Last Name" onChange={handleChange} value={state.lname} required />
             <label htmlFor="lname">Last Name</label>
           </div>
         </div>
@@ -29,13 +29,13 @@ function Stage1({ currentStep, state, handleChange }) {
       <div className="row g-2">
         <div className="col">
           <div className="form-floating mb-1">
-            <input type="text" className="form-control" id="phone" placeholder="Phone No." required/>
+            <input type="text" className="form-control" id="phone" placeholder="Phone No." onChange={handleChange} value={state.phone} required/>
             <label htmlFor="phone">Phone No.</label>
           </div>
         </div>
         <div className="col">
           <div className="form-floating mb-1">
-            <input type="text" className="form-control" id="email" placeholder="Email" required />
+            <input type="text" className="form-control" id="email" placeholder="Email" onChange={handleChange} value={state.email} required />
             <label htmlFor="email">Email</label>
           </div>
         </div>
@@ -44,13 +44,13 @@ function Stage1({ currentStep, state, handleChange }) {
       <div className="row g-2">
         <div className="col">
           <div className="form-floating mb-1">
-            <input type="password" className="form-control" id="password" placeholder="Password" />
+            <input type="password" className="form-control" id="password" placeholder="Password" onChange={handleChange} value={state.password} />
             <label htmlFor="password">Password</label>
           </div>
         </div>
         <div className="col">
           <div className="form-floating mb-1">
-            <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password" />
+            <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password" onChange={handleChange} value={state.confirmpassword} />
             <label htmlFor="confirmPassword">Confirm Password</label>
           </div>
         </div>

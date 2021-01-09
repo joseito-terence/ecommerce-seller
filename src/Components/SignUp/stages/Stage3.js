@@ -14,7 +14,7 @@ function Stage3({ currentStep, state, handleChange }) {
       <div className="row mb-2">
         <div className="col">
           <div className="form-floating">
-            <input type="text" className="form-control" id="cardHoldersName" placeholder="Card Holder Name" required />
+            <input type="text" className="form-control" id="cardHoldersName" placeholder="Card Holder Name" onChange={handleChange} value={state.cardHoldersName} required />
             <label htmlFor="cardHoldersName">Card Holder's Name</label>
           </div>
         </div>
@@ -23,13 +23,13 @@ function Stage3({ currentStep, state, handleChange }) {
       <div className="row g-2 mb-2">
         <div className="col">
           <div className="form-floating">
-            <input type="text" className="form-control" id="cardNumber" placeholder="Card Number" required />
+            <input type="text" className="form-control" id="cardNumber" placeholder="Card Number" onChange={handleChange} value={state.cardNumber} required />
             <label htmlFor="cardNumber">Card Number</label>
           </div>
         </div>
         <div className="col-2">
           <div className="form-floating">
-            <input type="number" className="form-control" id="cvv" placeholder="CVV" maxLength="3" required />
+            <input type="number" className="form-control" id="cvv" placeholder="CVV" maxLength="3" onChange={handleChange} value={state.ccv} required />
             <label htmlFor="cvv">CVV</label>
           </div>
         </div>
