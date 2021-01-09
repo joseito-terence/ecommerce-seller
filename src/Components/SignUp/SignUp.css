@@ -1,0 +1,105 @@
+.signUp{
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: #e0e0e0;
+}
+
+.signUp__form{
+  text-align: center;
+  background-color: white;
+  width: 730px;
+  /* height: 620px; */
+}
+
+.signUp__stages{
+  padding: 14px;
+}
+
+.signUp__stages > div{
+  padding: 10px;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.signUp__nextBtn{
+  background-color: #0c3763;
+  color: white;
+  transition: filter 300ms;
+}
+.signUp__nextBtn:hover{
+  color: white;
+  filter: brightness(1.2);
+}
+
+#signUp__progressbar {
+  margin-bottom: 4px;
+  overflow: hidden;
+  color: lightgrey;
+}
+
+#signUp__progressbar ol, ul {
+  padding-left: 0 !important;
+}
+
+#signUp__progressbar .active {
+  color: #000000;
+}
+
+#signUp__progressbar li {
+  list-style-type: none;
+  font-size: 12px;
+  width: 25%;
+  float: left;
+  position: relative;
+  z-index: 1;
+}
+
+#signUp__progressbar #account:before {
+  font-family: FontAwesome;
+  content: "\f023";
+}
+
+#signUp__progressbar #business:before {
+  font-family: FontAwesome;
+  content: "\f1ad";
+}
+
+#signUp__progressbar #billing:before {
+  font-family: FontAwesome;
+  content: "\f09d";
+}
+
+#signUp__progressbar #confirm:before {
+  font-family: FontAwesome;
+  content: "\f00c";
+}
+
+#signUp__progressbar li:before {
+  width: 50px;
+  height: 50px;
+  line-height: 45px;
+  display: block;
+  font-size: 18px;
+  color: #ffffff;
+  background: lightgray;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  padding: 2px;
+}
+
+#signUp__progressbar li:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: lightgray;
+  position: absolute;
+  left: 0;
+  top: 25px;
+  z-index: -1;
+}
+
+#signUp__progressbar li.active:before,
+#signUp__progressbar li.active:after {
+  background: #0c3763;
+}
