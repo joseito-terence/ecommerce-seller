@@ -1,0 +1,26 @@
+.products{
+  height: calc(100vh - 80px);
+  display: grid;
+  place-items: center;
+}
+
+.products > .modal-content{
+  width: 85%;
+}
+
+.products__search{
+  position: relative;
+}
+
+.products__search::after{
+  font-family: 'FontAwesome';
+  content: "\f002";
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  color: #81868b;
+}
+
+.products__search > input{
+  padding-right: 28px;
+}
