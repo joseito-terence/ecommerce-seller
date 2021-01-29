@@ -1,24 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { auth } from './firebase';
 
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
 import Header from './Components/Header';
-import Product from './Components/Products';
+import Products from './Components/Products';
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(authUser => {
+      setUser(authUser ? authUser : null);
+    })
+  }, []);
+
   return (
     <div className="App">
       <Router>
-        <Switch>
-          <Route path='/signin' component={SignIn} />
-          <Route path='/signup' component={SignUp} />
-          <Route path='/'>
-            <Header />
-            <Product />
-          </Route>
-        </Switch>
+        {!user ? (
+          <Switch>
+            <Route path='/signup' component={SignUp} />
+            <Route path={['/signin', '/']} component={SignIn} />
+          </Switch>
+        ) : (
+        <>
+          <Header />
+          <Switch>
+            <Route path='/products' component={Products} />
+            <Route path='/' component={Products} />
+          </Switch>
+        </>
+        )}
       </Router>
     </div>
   )

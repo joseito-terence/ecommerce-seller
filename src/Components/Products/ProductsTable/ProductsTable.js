@@ -1,40 +1,90 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import db, { auth } from '../../../firebase';
 import './ProductsTable.css';
+import Modal from '../../Modal';
+import ViewImages from './ViewImages/ViewImages';
 
 function ProductsTable() {
+  const [products, setProducts] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
+  const uid = auth.currentUser.uid;  
+
+  useEffect(() => {
+    const unsubscribe = db.collection('products')
+      .where('sellerId', '==', uid)
+      .onSnapshot(snap => {
+        setProducts(
+          snap.docs.map((doc) => 
+            ({ ...doc.data(), id: doc.id })
+          )
+        );
+      })
+    return () => {
+      unsubscribe();
+    }
+  }, []);
+
+  const updateProduct = (id) => {
+    // no idea how to implement this...
+    // too complex.
+    console.log(id);
+  }
+
+  const deleteProduct = (id) => {
+    console.log(id);
+  }
+
   return (
-    <table className="productsTable table table-striped table-hover">
-      <thead>
-        <tr className="table-dark">
-          <th>Product Id</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Tags</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>0126a5df05a6d5f0</td>
-          <td>Panasonic 584 L</td>
-          <td>Panasonic 584 L Inverter Frost-Free Side by Side...</td>
-          <td>59,990.00</td>
-          <td>20</td>
-          <td>Panasonic 584L, Refrigerator...</td>
-          <td>
-            
-            <button className="btn btn-primary me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit/Update"> 
-              <i className="fas fa-pen"></i>
-            </button>
-            <button className="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
-              <i className="fas fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <>
+      <table className="productsTable table table-striped table-hover">
+        <thead>
+          <tr className="table-dark">
+            <th>Product Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Tags</th>
+            <th>Images</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(product => (
+            <tr key={product.id}>
+              <td>{product.id}</td>
+              <td>{product.title}</td>
+              <td className='text-truncate'>{product.description}</td>
+              <td>{product.price}</td>
+              <td>{product.stock}</td>
+              <td>{product.tags.map(tag => `${tag}, `)}</td>
+              <td>
+                <button 
+                  onClick={() => setPreviewImages(product.images)} 
+                  className='btn btn-secondary btn-sm'
+                  data-bs-toggle="modal"
+                  data-bs-target="#previewImagesModal"
+                >
+                  View
+                </button>
+              </td>
+              <td>
+                <button onClick={() => updateProduct(product.id)} className="btn btn-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit/Update"> 
+                  <i className="fas fa-pen"></i>
+                </button>
+                <button onClick={() => deleteProduct(product.id)} className="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
+                  <i className="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      
+      <Modal id='previewImagesModal' title='Images (Preview)' className='d-none'>
+        <ViewImages images={previewImages} />
+      </Modal>
+    </>
   )
 }
 

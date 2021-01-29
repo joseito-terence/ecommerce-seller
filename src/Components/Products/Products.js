@@ -28,7 +28,7 @@ function Products() {
             title=" Add a Product"
             buttonIcon='fas fa-plus'
           >
-          <AddProducts />
+            <AddProducts />
           </Modal>
         </div>
       </div>

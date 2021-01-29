@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./Header.css";
+import { auth } from '../../firebase';
 
 function Header() {
   return (
@@ -20,7 +21,7 @@ function Header() {
 
         </div>
         
-        <button className="header__logoutBtn btn btn-secondary">Logout</button>
+        <button className="header__logoutBtn btn btn-secondary" onClick={() => auth.signOut()}>Logout</button>
       </div>
     </nav>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './SignUp.css';
+import db, { auth } from '../../firebase';
 
 import Stage1 from './stages/Stage1';
 import Stage2 from './stages/Stage2';
@@ -30,7 +31,8 @@ function SignUp() {
     month: '', 
     year: '',
   });
-  const progressBar = useRef();
+  const progressBar = useRef(); // progress on the stages in the form.
+  const [error, setError] = useState();
 
 
   const toggleActiveClass = (liIndex) => {
@@ -57,18 +59,58 @@ function SignUp() {
     event.preventDefault();
 
     let temp_step = currentStep + 1;
-    setCurrentStep(temp_step);
+    if(currentStep === 1 && state.password !== state.confirmPassword)
+      setError('Passwords do not Match.');
+    else
+      setCurrentStep(temp_step);
 
     if (temp_step < 5)
       toggleActiveClass(currentStep);
 
     if (temp_step === 4) {// submit to db and create account
-      console.log(state);
+      // console.log(state);
+      signUp();
     }
   }
 
+  const signUp = () => {
+    auth.createUserWithEmailAndPassword(state.email, state.password)
+      .then(authUser => {
+        const uid = authUser.user.uid;
+
+        auth.currentUser
+          .updateProfile({
+            displayName: `${state.fname} ${state.lname}`
+          });
+
+        db.doc(uid).set({
+          email: state.email,
+          phone: state.phone,
+          businessInfo: {
+            storeName: state.storeName,
+            shopNo: state.shopNo,
+            pincode: state.pincode,
+            city: state.city, 
+            state: state.state, 
+            country: state.country,
+          },
+          billingInfo: {
+            cardHoldersName: state.cardHoldersName, 
+            cardNumber: state.cardNumber,
+            cvv: state.cvv,
+            month: state.month, 
+            year: state.year,
+          }
+        })
+        .then(() => {
+          auth.signInWithEmailAndPassword(state.email, state.password);
+        })
+      })
+      .catch(error => setError(error.message));
+  }
+
   const handleChange = ({ target }) => {
-    setState({ ...state, [target.id]: target.value })
+    setState({ ...state, [target.id]: target.value });
   }
 
   return (
@@ -89,6 +131,13 @@ function SignUp() {
           <li id="billing"><strong>Billing</strong></li>
           <li id="confirm"><strong>Finish</strong></li>
         </ul>
+
+        {error && 
+          <div className="alert alert-danger alert-dismissible fade show m-3" role="alert">
+            {error}
+            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        }
 
         <form onSubmit={next}>
           <div className="signUp__stages">

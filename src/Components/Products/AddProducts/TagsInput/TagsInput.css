@@ -1,0 +1,40 @@
+.tagsInput {
+  background-color: #dedada;
+  padding: 10px;
+  border-radius: 0.25rem;
+}
+
+.tagsInput > ul {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.tagsInput > ul > li {
+  list-style: none;
+  background-color: var(--primary-accent);
+  color: white;
+  border-radius: 0.25rem;
+  padding: 5px;
+  margin-top: 3px;
+  margin-right: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tagsInput i {
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-left: 3px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tagsInput i:hover {
+  background-color: #6b6b6b;
+}

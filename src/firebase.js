@@ -12,11 +12,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-const dbRef = firebaseApp.firestore();
+const db = firebaseApp.firestore();
 const auth = firebase.auth();
 const storageRef = firebase.storage().ref();
 
-const db = dbRef.collection("sellers");
 
 export { auth, storageRef };
 export default db;

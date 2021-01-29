@@ -7,3 +7,23 @@
   outline: none !important;
   box-shadow: none !important;
 }
+
+:root{
+  --primary-accent: #0c3763;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: var(--primary-accent) !important;
+  border-color: var(--primary-accent) !important;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #0d3c6ced !important;
+  border-color: #0d3c6ced !important;
+}
+/* 
+.progress-bar{
+  background-color: #0c3763 !important;
+} */
