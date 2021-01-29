@@ -12,6 +12,7 @@ function Stage1({ currentStep, state, handleChange }) {
       <div className="row g-2">
         <div className="col">
           <div className="form-floating mb-1">
+
             <input
               type="text"
               className="form-control"
@@ -22,11 +23,13 @@ function Stage1({ currentStep, state, handleChange }) {
               required
             />
 
+
             <label htmlFor="fname">First Name</label>
           </div>
         </div>
         <div className="col">
           <div className="form-floating mb-1">
+
             <input
               type="text"
               className="form-control"
@@ -37,6 +40,7 @@ function Stage1({ currentStep, state, handleChange }) {
               required
             />
 
+
             <label htmlFor="lname">Last Name</label>
           </div>
         </div>
@@ -45,6 +49,7 @@ function Stage1({ currentStep, state, handleChange }) {
       <div className="row g-2">
         <div className="col">
           <div className="form-floating mb-1">
+
             <input
               type="text"
               className="form-control"
@@ -55,11 +60,13 @@ function Stage1({ currentStep, state, handleChange }) {
               required
             />
 
+
             <label htmlFor="phone">Phone No.</label>
           </div>
         </div>
         <div className="col">
           <div className="form-floating mb-1">
+
             <input
               type="text"
               className="form-control"
@@ -70,6 +77,7 @@ function Stage1({ currentStep, state, handleChange }) {
               required
             />
 
+
             <label htmlFor="email">Email</label>
           </div>
         </div>
@@ -78,6 +86,7 @@ function Stage1({ currentStep, state, handleChange }) {
       <div className="row g-2">
         <div className="col">
           <div className="form-floating mb-1">
+
             <input
               type="password"
               className="form-control"
@@ -88,11 +97,13 @@ function Stage1({ currentStep, state, handleChange }) {
               required
             />
 
+
             <label htmlFor="password">Password</label>
           </div>
         </div>
         <div className="col">
           <div className="form-floating mb-1">
+
             <input
               type="password"
               className="form-control"
@@ -102,6 +113,7 @@ function Stage1({ currentStep, state, handleChange }) {
               value={state.confirmPassword}
               required
             />
+
             <label htmlFor="confirmPassword">Confirm Password</label>
           </div>
         </div>

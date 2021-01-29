@@ -12,6 +12,7 @@ function Stage2({ currentStep, state, handleChange }) {
       <div className="row g-2">
         <div className="col">
           <div className="form-floating">
+
             <input
               type="text"
               className="form-control"
@@ -21,6 +22,7 @@ function Stage2({ currentStep, state, handleChange }) {
               value={state.storeName}
               required
             />
+
 
             <label htmlFor="storeName">Store Name</label>
           </div>
@@ -36,6 +38,7 @@ function Stage2({ currentStep, state, handleChange }) {
       <div className="row g-2 mb-2">
         <div className="col">
           <div className="form-floating">
+
             <input
               type="text"
               className="form-control"
@@ -45,11 +48,13 @@ function Stage2({ currentStep, state, handleChange }) {
               value={state.shopNo}
               required
             />
+
             <label htmlFor="shopNo">Shop No.</label>
           </div>
         </div>
         <div className="col">
           <div className="form-floating">
+
             <input
               type="text"
               className="form-control"
@@ -59,6 +64,7 @@ function Stage2({ currentStep, state, handleChange }) {
               value={state.pincode}
               required
             />
+
             <label htmlFor="pincode">Pincode</label>
           </div>
         </div>
@@ -67,6 +73,7 @@ function Stage2({ currentStep, state, handleChange }) {
       <div className="row g-2 mb-2">
         <div className="col">
           <div className="form-floating">
+
             <input
               type="text"
               className="form-control"
@@ -76,11 +83,13 @@ function Stage2({ currentStep, state, handleChange }) {
               value={state.city}
               required
             />
+
             <label htmlFor="city">City</label>
           </div>
         </div>
         <div className="col">
           <div className="form-floating">
+
             <input
               type="text"
               className="form-control"
@@ -90,11 +99,13 @@ function Stage2({ currentStep, state, handleChange }) {
               value={state.state}
               required
             />
+
             <label htmlFor="state">State</label>
           </div>
         </div>
         <div className="col">
           <div className="form-floating">
+
             <input
               type="text"
               className="form-control"
@@ -104,6 +115,7 @@ function Stage2({ currentStep, state, handleChange }) {
               value={state.country}
               required
             />
+
             <label htmlFor="country">Country</label>
           </div>
         </div>
