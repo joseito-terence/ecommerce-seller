@@ -52,6 +52,8 @@ function Stage1({ currentStep, state, handleChange }) {
               placeholder="Phone No."
               onChange={handleChange}
               value={state.phone}
+              pattern="^[\d]{10}$"
+              title="Should contain 10 digits."
               required
             />
 
@@ -61,7 +63,7 @@ function Stage1({ currentStep, state, handleChange }) {
         <div className="col">
           <div className="form-floating mb-1">
             <input
-              type="text"
+              type="email"
               className="form-control"
               id="email"
               placeholder="Email"
@@ -86,6 +88,7 @@ function Stage1({ currentStep, state, handleChange }) {
               onChange={handleChange}
               value={state.password}
               required
+              minLength={8}
             />
 
             <label htmlFor="password">Password</label>
@@ -101,6 +104,7 @@ function Stage1({ currentStep, state, handleChange }) {
               onChange={handleChange}
               value={state.confirmPassword}
               required
+              minLength={8}
             />
             <label htmlFor="confirmPassword">Confirm Password</label>
           </div>

@@ -1,0 +1,57 @@
+.uploaderTask {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.uploaderTask > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  cursor: pointer;
+  color: #333;
+  font-size: 1.57rem;
+  padding-bottom: 0.3rem;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50px;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.uploaderTask > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.uploaderTask:hover::after,
+.uploaderTask-uploading::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.uploaderTask:hover span {
+  display: flex;
+}
+
+.uploaderTask > .progress {
+  position: absolute;
+  width: 95%;
+  height: 6px;
+}
+
+

@@ -1,0 +1,37 @@
+.product__images-display {
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product__images-main{
+  width: 350px;
+  height: 350px;
+}
+
+.product__images-main > img{
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.product__images-sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product__images-sub img {
+  margin: 50px 15px 0px 15px;
+  border: 1px solid #e0e0e0;
+  height: 80px;
+  width: 80px;
+  background-size: cover;
+  transition: border 0.1s ease;
+}
+.product__images-sub img:hover {
+  cursor: pointer;
+  border: 2px solid #333333;
+}
