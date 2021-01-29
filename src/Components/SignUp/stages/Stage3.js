@@ -21,6 +21,7 @@ function Stage3({ currentStep, state, handleChange }) {
       <div className="row mb-2">
         <div className="col">
           <div className="form-floating">
+
             <input
               type="text"
               className="form-control"
@@ -30,6 +31,7 @@ function Stage3({ currentStep, state, handleChange }) {
               value={state.cardHoldersName}
               required
             />
+
             <label htmlFor="cardHoldersName">Card Holder's Name</label>
           </div>
         </div>
@@ -38,6 +40,7 @@ function Stage3({ currentStep, state, handleChange }) {
       <div className="row g-2 mb-2">
         <div className="col">
           <div className="form-floating">
+
             <input
               type="text"
               className="form-control"
@@ -47,11 +50,13 @@ function Stage3({ currentStep, state, handleChange }) {
               value={state.cardNumber}
               required
             />
+
             <label htmlFor="cardNumber">Card Number</label>
           </div>
         </div>
         <div className="col-2">
           <div className="form-floating">
+
             <input
               type="number"
               className="form-control"
@@ -63,6 +68,7 @@ function Stage3({ currentStep, state, handleChange }) {
               value={state.cvv}
               required
             />
+
             <label htmlFor="cvv">CVV</label>
           </div>
         </div>
