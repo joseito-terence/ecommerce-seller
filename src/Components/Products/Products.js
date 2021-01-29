@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from '../Modal';
 import './Products.css';
 import ProductsTable from './ProductsTable/';
+import AddProducts from './AddProducts';
 
 function Products() {
   return (
@@ -23,10 +24,11 @@ function Products() {
         <div className="modal-footer" style={{ padding: "10px" }}>
           <Modal 
             id='addProduct' 
-            buttonText="Add New Product" 
-            title="Add New Product"
+            buttonText="Add a Product" 
+            title=" Add a Product"
+            buttonIcon='fas fa-plus'
           >
-          <h1>Modal Header</h1>
+          <AddProducts />
           </Modal>
         </div>
       </div>
