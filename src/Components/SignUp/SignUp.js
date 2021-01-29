@@ -39,10 +39,14 @@ function SignUp() {
       .classList.toggle('active');
   }
 
+
+
   // Backward navigation
-  const prev = () => {
+  const prev = (event) => {
+    event.preventDefault();
     let temp_step = currentStep - 1;
-    setCurrentStep((temp_step < 1) ? 1 : temp_step);
+    
+    setCurrentStep(temp_step);
 
     if (temp_step > 0)
       toggleActiveClass(temp_step);
@@ -53,10 +57,14 @@ function SignUp() {
     event.preventDefault();
 
     let temp_step = currentStep + 1;
-    setCurrentStep((temp_step > 4) ? 4 : temp_step);
+    setCurrentStep(temp_step);
 
     if (temp_step < 5)
       toggleActiveClass(currentStep);
+
+    if (temp_step === 4) {// submit to db and create account
+      console.log(state);
+    }
   }
 
   const handleChange = ({ target }) => {
@@ -84,9 +92,9 @@ function SignUp() {
 
         <form onSubmit={next}>
           <div className="signUp__stages">
-            <Stage1 currentStep={currentStep} state={state} onChange={handleChange} />
-            <Stage2 currentStep={currentStep} state={state} onChange={handleChange} />
-            <Stage3 currentStep={currentStep} state={state} onChange={handleChange} />
+            <Stage1 currentStep={currentStep} state={state} handleChange={handleChange} />
+            <Stage2 currentStep={currentStep} state={state} handleChange={handleChange} />
+            <Stage3 currentStep={currentStep} state={state} handleChange={handleChange} />
             <Stage4 currentStep={currentStep} />
           </div>
           

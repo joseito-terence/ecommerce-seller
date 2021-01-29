@@ -1,0 +1,42 @@
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
+import "./Header.css";
+
+function Header() {
+  return (
+    <nav className="header">
+      <div className="header__container">
+        <div>
+          <Link to="/">
+            <img
+              className="header__logo"
+              src="https://josephreisigl.files.wordpress.com/2015/08/amazonlogo.png"
+              alt="logo"
+            />
+          </Link>
+
+          <NavItem text="Dashboard" link="/" />
+          <NavItem text="Products" link="/products" />
+
+        </div>
+        
+        <button className="header__logoutBtn btn btn-secondary">Logout</button>
+      </div>
+    </nav>
+  );
+}
+
+function NavItem({ text, link }) {
+  return (
+    <NavLink
+      exact
+      className="btn text-light"
+      activeClassName="btn-primary"
+      to={link}
+    >
+      {text}
+    </NavLink>
+  );
+}
+
+export default Header;

@@ -1,0 +1,88 @@
+.imageUploader__dropArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ddd;
+  height: 200px;
+  cursor: grab;
+}
+
+.imageUploader__dropArea.highlight {
+  border-color: blue;
+}
+.imageUploader__dropArea.highlight label {
+  color: blue;
+}
+
+.imageUploader__fileUpload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #3333;
+}
+
+.imageUploader__image-previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-auto-rows: 100px;
+  margin-top: 1rem;
+  grid-gap: 10px;
+}
+
+.imageUploader__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.imageUploader__image > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  cursor: pointer;
+  color: #333;
+  font-size: 1.57rem;
+  padding-bottom: 0.3rem;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50px;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageUploader__image > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.imageUploader__image:hover::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.imageUploader__image:hover span {
+  display: flex;
+}
+
+
+.imageUploader__progress.show{
+  display: block;
+}
