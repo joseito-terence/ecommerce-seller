@@ -80,9 +80,7 @@ function SignIn() {
           </div>
           <div className="col">
             <img
-              // a random image taken from the internet
-              // should be replaced later.
-              src="https://firebasestorage.googleapis.com/v0/b/tybca-project.appspot.com/o/Thu%20Jan%2028%202021%2011%3A30%3A05%20GMT%2B0530%20(India%20Standard%20Time)%20-%20Screenshot%202021-01-27%20122352.jpg?alt=media&token=eced6542-1259-47c2-af2b-fd71e90a6eff"
+              src="https://firebasestorage.googleapis.com/v0/b/tybca-project.appspot.com/o/assets%2FScreenshot%202021-01-27%20122352.jpg?alt=media&token=5d70f4f2-4efe-480f-8461-a4291960a1b6"
               alt="banner"
             />
           </div>

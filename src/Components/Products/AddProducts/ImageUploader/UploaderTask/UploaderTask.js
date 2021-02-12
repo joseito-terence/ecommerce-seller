@@ -10,10 +10,11 @@ function UploaderTask({ id, handleDelete, image, shouldUploadImgs, getDownloadUR
   useEffect(() => {
     if(shouldUploadImgs){
       const file = image.file;
-      const fileName = `${new Date()} - ${image.name}`;
+      const date = new Date().toString().slice(0, -31).replaceAll(' ', '-');
+      const fileName = `${date} - ${image.name}`;
       const metadata = { contentType: image.type, };
       
-      const uploadTask = storageRef.child(fileName).put(file, metadata);
+      const uploadTask = storageRef.child(`products/${fileName}`).put(file, metadata);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
         (snapshot) => {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
@@ -30,8 +31,6 @@ function UploaderTask({ id, handleDelete, image, shouldUploadImgs, getDownloadUR
           // }
         }, 
         (error) => {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
           switch (error.code) {
             case 'storage/unauthorized':
               console.log("User doesn't have permission to access the object");
@@ -49,7 +48,7 @@ function UploaderTask({ id, handleDelete, image, shouldUploadImgs, getDownloadUR
         }, 
         () => {
           // Upload completed successfully, now we can get the download URL
-          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
             getDownloadURL(downloadURL);
             console.log('File available at', downloadURL);
           });
