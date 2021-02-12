@@ -53,6 +53,7 @@ function ProductsTable() {
             <th>Product Id</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Category</th>
             <th>Price</th>
             <th>Stock</th>
             <th>Tags</th>
@@ -66,6 +67,7 @@ function ProductsTable() {
               <td>{product.id}</td>
               <td>{product.title}</td>
               <td className='text-truncate'>{product.description}</td>
+              <td className='text-truncate'>{product.category}</td>
               <td>{product.price}</td>
               <td>{product.stock}</td>
               <td>{product.tags.map(tag => `${tag}, `)}</td>

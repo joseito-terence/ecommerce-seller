@@ -10,12 +10,14 @@ function AddProducts() {
     tags: [], 
     stock: '',   // units_in_stock
     price: '',
+    category: '',
     images: [],
   };
   const [state, setState] = useState(initialState);
   const [shouldUploadImgs, setShouldUploadImgs] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const closeBtn = useRef();
+  const categories = ['Appliances', 'Apps & Games', 'Baby', 'Beauty', 'Books', 'Car & Motorbike', 'Clothing & Accessories', 'Collectibles', 'Computers & Accessories', 'Electronics', 'Furniture', 'Garden & Outdoors', 'Grocery & Gourmet Foods', 'Health & Personal Care', 'Home & Kitchen', 'Industrial & Scientific', 'Jewellery', 'Luggage & Bags', 'Movies & TV Shows', 'Music', 'Musical Instruments', 'Office Products', 'Pet Supplies', 'Shoes & Handbags', 'Software', 'Sports, Fitness & Outdoors', 'Tools & Home Improvement', 'Toys & Games', 'Watches'];   
   const uid = auth.currentUser.uid;  
 
   const handleChange = ({ target }) => {
@@ -35,6 +37,8 @@ function AddProducts() {
     setShouldUploadImgs(true);   // enable uploading
     setIsDisabled(true);         // disable form input.
   }
+
+  console.log(state);
 
   useEffect(() => {
     if(state.images.length !== 0){
@@ -78,6 +82,15 @@ function AddProducts() {
           <label className="text-end fs-5" htmlFor="price">Price</label>
           <input type="text" id='price' className='form-control' value={state.price} onChange={handleChange} disabled={isDisabled} 
           pattern='^\d+(\.\d{1,2})?$' title='Price can be formatted as 0.00'  required/>
+        </div>
+
+        {/* CATEGORIES */}
+        <div className="mb-3">
+          <label className="text-end fs-5" htmlFor="category">Category</label>
+          <select id="category" className='form-select' value={state.category} onChange={handleChange}  disabled={isDisabled} required>
+            <option value=''>Select Category</option>
+            {categories.map(category => <option value={category}>{category}</option>)}
+          </select>
         </div>
 
         {/* TAGS */}
