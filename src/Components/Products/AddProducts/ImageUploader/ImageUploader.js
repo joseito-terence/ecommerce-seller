@@ -68,6 +68,7 @@ function ImageUploader({ shouldUploadImgs, setShouldUploadImgs, dispatchImageURL
       setShouldUploadImgs(false);
       setImages([]);
       dispatchImageURLs(downloadURLs);
+      setDownloadURLs([]);
     }
   }, [downloadURLs])
 
@@ -88,7 +89,7 @@ function ImageUploader({ shouldUploadImgs, setShouldUploadImgs, dispatchImageURL
           accept='image/*' 
           multiple 
           onChange={handleFileChange} 
-          disabled={isDisabled}  
+          disabled={isDisabled} 
         />
       </div>
 
@@ -104,6 +105,9 @@ function ImageUploader({ shouldUploadImgs, setShouldUploadImgs, dispatchImageURL
           />
         ))}
       </div>
+      {(shouldUploadImgs && !images) && <p className="text-danger">
+        *Images Required
+      </p>}
     </div>
   )
 }
