@@ -66,11 +66,11 @@ function ProductsTable() {
             <tr key={product.id}>
               <td>{product.id}</td>
               <td>{product.title}</td>
-              <td className='text-truncate'>{product.description}</td>
-              <td className='text-truncate'>{product.category}</td>
+              <td className='text-wrap'>{product.description}</td>
+              <td>{product.category}</td>
               <td>{product.price}</td>
               <td>{product.stock}</td>
-              <td>{product.tags.map(tag => `${tag}, `)}</td>
+              <td className='text-wrap'>{product.tags.map(tag => `${tag}, `)}</td>
               <td>
                 <button 
                   onClick={() => setPreviewImages(product.images)} 

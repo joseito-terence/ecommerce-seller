@@ -38,7 +38,7 @@ function AddProducts() {
     setIsDisabled(true);         // disable form input.
   }
 
-  console.log(state);
+  //console.log(state);
 
   useEffect(() => {
     if(state.images.length !== 0){
@@ -50,8 +50,9 @@ function AddProducts() {
           setIsDisabled(false);           // enable the fields
           setState(initialState);         // reset state
           closeBtn.current.click();       // close the modal.
+          console.log('uploaded')
         })
-        .catch(err => console.log(err.message));
+        .catch(err => console.log(err));
     }
   }, [state.images])
 
@@ -89,7 +90,9 @@ function AddProducts() {
           <label className="text-end fs-5" htmlFor="category">Category</label>
           <select id="category" className='form-select' value={state.category} onChange={handleChange}  disabled={isDisabled} required>
             <option value=''>Select Category</option>
-            {categories.map(category => <option value={category}>{category}</option>)}
+            {categories.map(category => 
+              <option key={category} value={category}>{category}</option>
+            )}
           </select>
         </div>
 
