@@ -1,9 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import db, { auth } from '../../../firebase';
+import './UpdateProduct.css';
+import db, { auth, storage } from '../../../firebase';
 import ImageUploader from './ImageUploader';
 import TagsInput from '../TagsInput';
 
-function AddProducts() {
+function UpdateProduct({ product }) {
+  return (
+    <div>
+      <ProductForm product={product} />
+    </div>
+  )
+}
+
+export default UpdateProduct;
+
+
+
+function ProductForm({ product }) {
   const initialState = {
     title: '', 
     description: '', 
@@ -12,20 +25,33 @@ function AddProducts() {
     price: '',
     category: '',
     images: [],
+    deleteQueue: [],    // should hold urls of images for delete from db. AND SHOULD BE REMOVED BEFORE COMITTING STATE TO DB.
+    imagesUploaded: false,
   };
   const [state, setState] = useState(initialState);
+  const [originalProduct, setOriginalProduct] = useState({});         // store the original product info., to revert back onCancel.
   const [shouldUploadImgs, setShouldUploadImgs] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const closeBtn = useRef();
-  const categories = ['Appliances', 'Apps & Games', 'Baby', 'Beauty', 'Books', 'Car & Motorbike', 'Clothing & Accessories', 'Collectibles', 'Computers & Accessories', 'Electronics', 'Furniture', 'Garden & Outdoors', 'Grocery & Gourmet Foods', 'Health & Personal Care', 'Home & Kitchen', 'Industrial & Scientific', 'Jewellery', 'Luggage & Bags', 'Movies & TV Shows', 'Music', 'Musical Instruments', 'Office Products', 'Pet Supplies', 'Shoes & Handbags', 'Software', 'Sports, Fitness & Outdoors', 'Tools & Home Improvement', 'Toys & Games', 'Watches'];   
+  const categories = ['Appliances', 'Apps & Game s', 'Baby', 'Beauty', 'Books', 'Car & Motorbike', 'Clothing & Accessories', 'Collectibles', 'Computers & Accessories', 'Electronics', 'Furniture', 'Garden & Outdoors', 'Grocery & Gourmet Foods', 'Health & Personal Care', 'Home & Kitchen', 'Industrial & Scientific', 'Jewellery', 'Luggage & Bags', 'Movies & TV Shows', 'Music', 'Musical Instruments', 'Office Products', 'Pet Supplies', 'Shoes & Handbags', 'Software', 'Sports, Fitness & Outdoors', 'Tools & Home Improvement', 'Toys & Games', 'Watches'];   
   const uid = auth.currentUser.uid;  
 
   const handleChange = ({ target }) => {
     setState({ ...state, [target.name]: target.value });
   } 
 
-  const getImageURLs = (urls) => {        // get image urls array from the ImageUploader Component.
-    setState({ ...state, images: urls });
+  const getImageURLs = urls => {        // get image urls array from the ImageUploader Component.
+    setState({ 
+      ...state,                                       // spread state.
+      images: [...state.images, ...urls],             // append new image urls to state.
+      imagesUploaded: true,
+    });
+  }
+
+  const resetForm = event => {
+    event?.preventDefault();
+
+    setState({...initialState, ...originalProduct});
   }
 
   const submit = (event) => {
@@ -34,23 +60,52 @@ function AddProducts() {
     setIsDisabled(true);         // disable form input.
   }
 
-  //console.log(state);
+  console.log(state);
+  // console.log(product);
+
+  const deleteImages = async () => {
+    const promises = state.deleteQueue.map(url => storage.refFromURL(url).delete());
+
+    return Promise.all(promises).then(() => {
+      setState({ 
+        ...state,  
+        deleteQueue: []
+      })
+    });
+  }
+
+  useEffect(() => {                                           // this effect executes everytime the value of product changes. Think of it as a class constructor.
+    if(product){
+      setOriginalProduct(product);                            // preserve a copy of the product
+      setState(prevState => ({ ...prevState, ...product}));   // set product to state.
+    }
+  }, [product]);
 
   useEffect(() => {
-    if(state.images.length !== 0){
-      console.log('upload to firestore>>>',state);
+    /** STEPS
+     * 0. upload new images (if any)
+     * 1. delete from deleteQueue
+     * 2. update product in db.
+     */
 
-      db.collection('products')
-        .add({ ...state, sellerId: uid })                       // add new product to db
+    if(state.imagesUploaded){
+      console.log('images uploaded');
+      deleteImages()
+        .then(() => {
+          console.log('images deleted');
+          const { id, title, description, tags, stock, price, category, images } = state;
+          return db.doc(`products/${id}`)
+            .update({ title, description, tags, stock, price, category, images, sellerId: uid })           // add new product to db
+        })
         .then(() => {                     // on success
           setIsDisabled(false);           // enable the fields
           setState(initialState);         // reset state
           closeBtn.current.click();       // close the modal.
           console.log('uploaded')
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err))
     }
-  }, [state.images])
+  }, [state.imagesUploaded]);
 
   return (
     <div className='addProducts px-4 pt-4'>
@@ -106,11 +161,13 @@ function AddProducts() {
             setShouldUploadImgs={setShouldUploadImgs} 
             isDisabled={isDisabled} 
             dispatchImageURLs={getImageURLs}
+            state={state}
+            setState={setState}
           />
         </div>
         <div className="modal-footer m-0 p-0 py-1">
-          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeBtn}>Close</button>
-          <button type="submit" className="btn btn-primary" disabled={isDisabled}>Add Product</button>
+          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeBtn} onClick={resetForm} disabled={isDisabled}>Cancel</button>
+          <button type="submit" className="btn btn-primary" disabled={isDisabled}>Update</button>
         </div>
         
       </form>
@@ -118,4 +175,3 @@ function AddProducts() {
   )
 }
 
-export default AddProducts;
