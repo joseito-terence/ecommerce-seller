@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import db, { auth, storage } from '../../../firebase';
 import './ProductsTable.css';
 import Modal from '../../Modal';
-import ViewImages from './ViewImages/ViewImages';
+import ViewImages from './ViewImages';
+import UpdateProduct from '../UpdateProduct';
 
 function ProductsTable() {
   const [products, setProducts] = useState([]);
-  const [previewImages, setPreviewImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);         // holds urls of images of a product to be previwed.
+  const [productForUpdate, setProductForUpdate] = useState({});   // holds details of product to be updated.
   const uid = auth.currentUser.uid;  
 
   useEffect(() => {
@@ -24,25 +26,23 @@ function ProductsTable() {
     }
   }, []);
 
-  const updateProduct = (id) => {
-    // no idea how to implement this...
-    // too complex.
-    console.log(id);
+  const updateProduct = (product) => {
+    setProductForUpdate(product);
   }
 
   const deleteProduct = (id, images) => {
     console.log(id);
 
-    let promises = images.map(image => storage.refFromURL(image).delete());   // map all the promises into an array
+    if(window.confirm('Do you want to delete?')){
+      let promises = images.map(image => storage.refFromURL(image).delete());   // map all the promises into an array
 
-    return Promise.all(promises).then(() => {         // execute once all promises are resolved.
-      db.doc(`products/${id}`)                        // i.e delete the record from the database.
-        .delete()
-        .then(() => console.log('Delete Successful'))
-        .catch(error => console.log(error));
-    });
-
-    
+      return Promise.all(promises).then(() => {         // execute once all promises are resolved.
+        db.doc(`products/${id}`)                        // i.e delete the record from the database.
+          .delete()
+          .then(() => console.log('Delete Successful'))
+          .catch(error => console.log(error));
+      });
+    }
   }
 
   return (
@@ -82,7 +82,15 @@ function ProductsTable() {
                 </button>
               </td>
               <td>
-                <button onClick={() => updateProduct(product.id)} className="btn btn-primary btn-sm me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit/Update"> 
+                <button 
+                  onClick={() => updateProduct(product)} 
+                  className="btn btn-primary btn-sm me-1" 
+                  data-bs-toggle="tooltip" 
+                  data-bs-placement="top" 
+                  title="Edit/Update"
+                  data-bs-toggle="modal"
+                  data-bs-target="#updateProductModal"
+                > 
                   <i className="fas fa-pen"></i>
                 </button>
                 <button onClick={() => deleteProduct(product.id, product.images)} className="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
@@ -97,6 +105,11 @@ function ProductsTable() {
       <Modal id='previewImagesModal' title='Images (Preview)' className='d-none'>
         <ViewImages images={previewImages} />
       </Modal>
+      
+      <Modal id='updateProductModal' title='Update/Edit Products' className='d-none'>
+        <UpdateProduct product={productForUpdate} />
+      </Modal>
+          
     </>
   )
 }
