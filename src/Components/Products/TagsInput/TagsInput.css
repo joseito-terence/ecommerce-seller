@@ -35,6 +35,6 @@
   align-items: center;
 }
 
-.tagsInput i:hover {
+.tagsInput i.fas.fa-times:hover {
   background-color: #6b6b6b;
 }
