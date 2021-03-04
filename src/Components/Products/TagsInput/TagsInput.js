@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import './TagsInput.css';
 
 function TagsInput({ isDisabled, state, setState }) {
+  const [tag, setTag] = useState('');
 
-  const addTags = ({ key, target }) => {
-    const tag = target.value.slice(0, -1);                        // remove the ',' from the end
+  const addTag = event => {
+    event.preventDefault();
 
-    if (key === "," && tag !== "") {
+    if (tag) {
       if(state.tags.indexOf(tag) === -1)                          // if doesn't exist already
         setState({ ...state, tags: [ ...state.tags, tag ]});      // add tag.
 
-      target.value = "";                                          // reset the field
+      setTag('');                                                 // reset the field
     }
   };
 
@@ -31,13 +32,20 @@ function TagsInput({ isDisabled, state, setState }) {
           </li>
         ))}
       </ul>
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Press ,(comma) to add a tag"
-        onKeyUp={addTags}
-        disabled={isDisabled}
-      />
+      <div className='d-flex'>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Add a tag"
+          value={tag}
+          onChange={e => setTag(e.target.value)}
+          disabled={isDisabled}
+        />
+        <button type='button' className="btn btn-secondary ms-1" onClick={addTag}>
+          <i className="fas fa-plus"></i>
+        </button>
+      </div>
+      
     </div>
   );
 }

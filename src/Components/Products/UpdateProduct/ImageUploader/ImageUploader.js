@@ -106,7 +106,7 @@ function ImageUploader({ shouldUploadImgs, setShouldUploadImgs, dispatchImageURL
          state.images.map((image, idx) => (
           <div className="uploaderTask false" key={idx}>
             <span onClick={() => markImageForDelete(idx)}>&times;</span>
-            <img src={image} alt={`image ${idx}`} />
+            <img src={image} alt={idx} />
           </div>
         ))}
         {/* New images for upload */

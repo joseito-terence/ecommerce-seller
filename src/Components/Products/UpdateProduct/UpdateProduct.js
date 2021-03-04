@@ -48,8 +48,8 @@ function ProductForm({ product }) {
     });
   }
 
-  const resetForm = event => {
-    event?.preventDefault();
+  const resetForm = () => {
+    // event?.preventDefault();
 
     setState({...initialState, ...originalProduct});
   }
@@ -73,6 +73,14 @@ function ProductForm({ product }) {
       })
     });
   }
+
+  useEffect(() => {   // for execution at component mount.    RESET FORM ON MODAL CLOSE.
+    const modalCloseBtn = document.querySelector('#updateProductModal .btn-close');
+    modalCloseBtn.addEventListener('click', resetForm);
+    return () => {
+      modalCloseBtn.removeEventListener('click', resetForm)
+    }
+  }, []);
 
   useEffect(() => {                                           // this effect executes everytime the value of product changes. Think of it as a class constructor.
     if(product){
