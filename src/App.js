@@ -7,6 +7,7 @@ import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
 import Header from './Components/Header';
 import Products from './Components/Products';
+import User from './Components/User';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -29,6 +30,7 @@ function App() {
         <>
           <Header />
           <Switch>
+            <Route path='/user' component={User} />
             <Route path='/products' component={Products} />
             <Route path='/' component={Products} />
           </Switch>

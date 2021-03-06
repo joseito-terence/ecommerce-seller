@@ -18,6 +18,7 @@ function Header() {
 
           <NavItem text="Dashboard" link="/" />
           <NavItem text="Products" link="/products" />
+          <NavItem text="User" link="/user" />
 
         </div>
         
