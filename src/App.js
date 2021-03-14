@@ -5,6 +5,7 @@ import { auth } from './firebase';
 
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
+import PasswordReset from './Components/PasswordReset';
 import Header from './Components/Header';
 import Products from './Components/Products';
 import User from './Components/User';
@@ -24,6 +25,7 @@ function App() {
         {!user ? (
           <Switch>
             <Route path='/signup' component={SignUp} />
+            <Route path='/passwordreset' component={PasswordReset}/>
             <Route path={['/signin', '/']} component={SignIn} />
           </Switch>
         ) : (
@@ -31,7 +33,7 @@ function App() {
           <Header />
           <Switch>
             <Route path='/user' component={User} />
-            <Route path='/products' component={Products} />
+            {/* <Route path='/products' component={Products} /> */}
             <Route path='/' component={Products} />
           </Switch>
         </>

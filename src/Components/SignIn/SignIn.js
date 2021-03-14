@@ -65,12 +65,20 @@ function SignIn() {
                   value={state.password}
                   required
                 />
-
+                
                 <input
                   type="submit"
                   className="btn btn-primary mt-2"
                   value="Sign in"
-                />
+                  />
+
+                  <br/>
+                
+                {/*
+                <Link to="/passwordreset" className="btn btn-link mt-2">
+                  Forgot password?
+                </Link>
+                */}
 
                 <Link to="/signup" className="btn btn-link mt-2">
                   Not a member? Create an account here.
