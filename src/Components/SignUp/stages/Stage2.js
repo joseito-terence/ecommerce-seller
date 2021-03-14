@@ -56,9 +56,11 @@ function Stage2({ currentStep, state, handleChange }) {
           <div className="form-floating">
 
             <input
-              type="text"
+              type="number"
               className="form-control"
               id="pincode"
+              min="6"
+              max="6"
               placeholder="Pincode"
               onChange={handleChange}
               value={state.pincode}

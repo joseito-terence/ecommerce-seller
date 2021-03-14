@@ -50,7 +50,7 @@ function ProductForm({ product }) {
 
   const resetForm = () => {
     // event?.preventDefault();
-
+    console.log({...initialState, ...originalProduct})
     setState({...initialState, ...originalProduct});
   }
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./User.css";
 import db, { auth } from "../../firebase";
 
@@ -35,7 +35,7 @@ function UserUpdate() {
   const [state, setState] = useState(initialState);
   const [originalInfo, setOriginalInfo] = useState({}); // stores the original user information to revert back onCancel.
   const [isDisabled, setIsDisabled] = useState(true);
-  const uid = auth.currentUser.uid;
+  const { uid, displayName } = auth.currentUser;
 
   const handleChange = ({ target }) => {
     setState({ ...state, [target.name]: target.value });
@@ -52,6 +52,21 @@ function UserUpdate() {
     // logic for submit goes here...
   };
 
+  useEffect(() => {
+    db.doc(`sellers/${uid}`)
+      .get()
+      .then(doc => setState({
+        fname: displayName.split(' ')[0],
+        lname: displayName.split(' ')[1],
+        ...doc.data(),                 // spread the full object.   
+        ...doc.data().billingInfo,     
+        ...doc.data().businessInfo
+      }))
+      .catch(err => console.log(err));
+  }, []);
+
+  console.log(state);
+  
   return (
     <div className="UpdateUser">
       <form onSubmit={submit} method="post">
@@ -272,7 +287,8 @@ function UserUpdate() {
                 required
               />
             </div>
-
+          </div>
+          <div className="row mb-3">
             <div className="col">
               <label className="text-end fs-5" htmlFor="cardNumber">
                 Card Number
@@ -288,12 +304,10 @@ function UserUpdate() {
                 required
               />
             </div>
-          </div>
 
-          <div className="row mb-2 pb-4 border-1 border-bottom">
             <div className="col">
-              <label className="text-end fs-5" htmlFor="state">
-                State
+              <label className="text-end fs-5" htmlFor="cvv">
+                CVV
               </label>
 
               <input
@@ -306,7 +320,10 @@ function UserUpdate() {
                 required
               />
             </div>
+          </div>
 
+          <div className="row mb-3">
+            <h5>Expiry Date</h5>
             <div className="col">
               <label className="text-end fs-5" htmlFor="Month">
                 Month
@@ -317,6 +334,7 @@ function UserUpdate() {
                 id="month"
                 onChange={handleChange}
                 value={state.month}
+                disabled={isDisabled}
                 required
               >
                 <option value=""> --Select-- </option>
@@ -345,6 +363,7 @@ function UserUpdate() {
                 id="year"
                 onChange={handleChange}
                 value={state.year}
+                disabled={isDisabled}
                 required
               >
                 <option value=""> --Select-- </option>
