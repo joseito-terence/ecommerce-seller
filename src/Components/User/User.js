@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./User.css";
 import db, { auth } from "../../firebase";
+import Modal from "../Modal";
+import ChangePassword from "./ChangePassword";
 
 function UserUpdate() {
   const tenYears = () => {
@@ -42,39 +44,86 @@ function UserUpdate() {
   };
 
   const resetForm = () => {
-		setIsDisabled(true);
-		setState(originalInfo);
+    setIsDisabled(true);
+    setState(originalInfo);
   };
+
+  const enableEditing = () => {
+    setIsDisabled(false);   // enable fields for editing
+    setOriginalInfo(state); // Store original information.
+  }
 
   const submit = (event) => {
     event.preventDefault();
 
-    // logic for submit goes here...
+    db.doc(`sellers/${uid}`)
+      .update({
+        email: state.email,
+        phone: state.phone,
+        businessInfo: {
+          storeName: state.storeName,
+          shopNo: state.shopNo,
+          pincode: state.pincode,
+          city: state.city,
+          state: state.state,
+          country: state.country,
+        },
+        billingInfo: {
+          cardHoldersName: state.cardHoldersName,
+          cardNumber: state.cardNumber,
+          cvv: state.cvv,
+          month: state.month,
+          year: state.year,
+        },
+      })
+      .then(() => {
+        auth.currentUser.updateProfile({
+          displayName: `${state.fname} ${state.lname}`,
+        });
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     db.doc(`sellers/${uid}`)
       .get()
-      .then(doc => setState({
-        fname: displayName.split(' ')[0],
-        lname: displayName.split(' ')[1],
-        ...doc.data(),                 // spread the full object.   
-        ...doc.data().billingInfo,     
-        ...doc.data().businessInfo
-      }))
-      .catch(err => console.log(err));
+      .then((doc) => {
+        // set user's details to state
+        setState({
+          fname: displayName.split(" ")[0],
+          lname: displayName.split(" ")[1],
+          ...doc.data(), // spread the full object.
+          ...doc.data().billingInfo,
+          ...doc.data().businessInfo,
+        });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
-  console.log(state);
-  
   return (
     <div className="UpdateUser">
       <form onSubmit={submit} method="post">
         <div className="container mt-4">
+          {/* Edit button. */}
+          <div className="row mt-2">
+            <div className="col d-flex justify-content-end">
+              {isDisabled && (
+                <button
+                  type="button"
+                  className="btn btn-outline-primary mx-2"
+                  onClick={enableEditing}
+                >
+                  <i className="fas fa-edit me-1"></i>
+                  Edit
+                </button>
+              )}
+            </div>
+          </div>
+
           {/* Account */}
-          <div className="row my-2">
+          <div className="row">
             <div className="col">
-              <h3 className="border-bottom p-2">Account</h3>
+              <h3 className="border-bottom px-2 pb-2">Account</h3>
             </div>
           </div>
 
@@ -130,28 +179,17 @@ function UserUpdate() {
                 title="Only Numbers allowed."
               />
             </div>
-
-            <div className="col">
-              <label className="text-end fs-5" htmlFor="fname">
-                Email
-              </label>
-
-              <input
-                type="text"
-                name="email"
-                className="form-control"
-                value={state.email}
-                onChange={handleChange}
-                disabled={isDisabled}
-                required
-              />
-            </div>
           </div>
           <div className="row">
             <div className="col">
-              <button type="button" className="btn btn-link p-1">
-                Change Password
-              </button>
+              <Modal
+                id="changePasswordModal"
+                title="Change Password"
+                className="btn btn-link p-1"
+                buttonText="Change Password"
+              >
+                <ChangePassword />
+              </Modal>
             </div>
           </div>
 
@@ -311,8 +349,8 @@ function UserUpdate() {
               </label>
 
               <input
-                type="text"
-                name="state"
+                type="password"
+                name="cvv"
                 className="form-control"
                 value={state.cvv}
                 onChange={handleChange}
@@ -331,7 +369,7 @@ function UserUpdate() {
 
               <select
                 className="form-select"
-                id="month"
+                name="month"
                 onChange={handleChange}
                 value={state.month}
                 disabled={isDisabled}
@@ -360,7 +398,7 @@ function UserUpdate() {
 
               <select
                 className="form-select"
-                id="year"
+                name="year"
                 onChange={handleChange}
                 value={state.year}
                 disabled={isDisabled}
@@ -378,18 +416,17 @@ function UserUpdate() {
 
           <div className="row mb-5">
             <div className="col d-flex justify-content-center">
-              {isDisabled ? (
-                <button type='button' className="btn btn-outline-primary btn-lg mx-2" onClick={() => setIsDisabled(false)}>
-                  <i className="fas fa-edit me-1"></i>
-                  Edit
-                </button>
-              ) : (
+              {!isDisabled && (
                 <>
-                  <button type='button' className="btn btn-secondary btn-lg mx-2" onClick={resetForm}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-lg mx-2"
+                    onClick={resetForm}
+                  >
                     <i className="far fa-times-circle me-1"></i>
                     Cancel
                   </button>
-                  <button type='submit' className="btn btn-success btn-lg mx-2">
+                  <button type="submit" className="btn btn-success btn-lg mx-2">
                     <i className="far fa-check-circle me-1"></i>
                     Update
                   </button>

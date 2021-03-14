@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./SignIn.css";
 import { auth } from '../../firebase';
 
 function SignIn() {
+  const history = useHistory();
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -20,7 +21,10 @@ function SignIn() {
     event.preventDefault();
 
     auth.signInWithEmailAndPassword(state.email, state.password)
-      .then(() => console.log('SignIn Successful'))
+      .then(() => {
+        history.push('/');  // Redirect to root on submit.
+        console.log('SignIn Successful');
+      })
       .catch(error => setError(error?.message));
   }
 
