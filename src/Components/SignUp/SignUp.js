@@ -40,9 +40,7 @@ function SignUp() {
       .querySelectorAll('li')[liIndex]
       .classList.toggle('active');
   }
-
-
-
+  
   // Backward navigation
   const prev = (event) => {
     event.preventDefault();
@@ -83,7 +81,7 @@ function SignUp() {
             displayName: `${state.fname} ${state.lname}`
           });
 
-        db.doc(uid).set({
+        db.doc(`sellers/${uid}`).set({
           email: state.email,
           phone: state.phone,
           businessInfo: {
@@ -105,6 +103,7 @@ function SignUp() {
         .then(() => {
           auth.signInWithEmailAndPassword(state.email, state.password);
         })
+        .catch(err => console.log(err));
       })
       .catch(error => setError(error.message));
   }

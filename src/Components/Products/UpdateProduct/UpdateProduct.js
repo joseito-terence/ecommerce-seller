@@ -49,8 +49,7 @@ function ProductForm({ product }) {
   }
 
   const resetForm = () => {
-    // event?.preventDefault();
-    console.log({...initialState, ...originalProduct})
+    // console.log({...initialState, ...originalProduct});
     setState({...initialState, ...originalProduct});
   }
 
@@ -60,7 +59,7 @@ function ProductForm({ product }) {
     setIsDisabled(true);         // disable form input.
   }
 
-  console.log(state);
+  // console.log(state);
   // console.log(product);
 
   const deleteImages = async () => {
