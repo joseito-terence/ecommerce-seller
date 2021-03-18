@@ -333,10 +333,12 @@ function UserUpdate() {
               </label>
 
               <input
-                type="text"
+                type="number"
                 name="cardNumber"
                 className="form-control"
                 value={state.cardNumber}
+                minLength={13}
+                maxLength={19}
                 onChange={handleChange}
                 disabled={isDisabled}
                 required
