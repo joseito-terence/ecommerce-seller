@@ -30,7 +30,7 @@ function Stage3({ currentStep, state, handleChange }) {
               onChange={handleChange}
               value={state.cardHoldersName}
               required
-            />
+              />
 
             <label htmlFor="cardHoldersName">Card Holder's Name</label>
           </div>
@@ -42,12 +42,16 @@ function Stage3({ currentStep, state, handleChange }) {
           <div className="form-floating">
 
             <input
-              type="text"
+              type="number"
               className="form-control"
               id="cardNumber"
               placeholder="Card Number"
+              minLength={13}
+              maxLength={19}
               onChange={handleChange}
               value={state.cardNumber}
+              //Visa || Mastercard
+              //pattern="/^(?:4[0-9]{12}(?:[0-9]{3})?)$/ | /^(?:5[1-5][0-9]{14})$/ "
               required
             />
 
