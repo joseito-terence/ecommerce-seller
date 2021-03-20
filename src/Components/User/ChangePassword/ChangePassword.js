@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import firebase from 'firebase';
-import db from '../../../firebase';
 import './ChangePassword.css';
 
 function ChangePassword() {
