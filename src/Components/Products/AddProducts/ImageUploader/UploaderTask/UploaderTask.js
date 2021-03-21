@@ -55,6 +55,7 @@ function UploaderTask({ id, handleDelete, image, shouldUploadImgs, getDownloadUR
         }
       );
     }
+    // eslint-disable-next-line
   }, [shouldUploadImgs])
 
 

@@ -24,7 +24,7 @@ function ProductsTable() {
     return () => {
       unsubscribe();
     }
-  }, []);
+  }, [uid]);
 
   const updateProduct = (product) => {
     setProductForUpdate(product);
@@ -84,8 +84,7 @@ function ProductsTable() {
               <td>
                 <button 
                   onClick={() => updateProduct(product)} 
-                  className="btn btn-primary btn-sm me-1" 
-                  data-bs-toggle="tooltip" 
+                  className="btn btn-primary btn-sm me-1"  
                   data-bs-placement="top" 
                   title="Edit/Update"
                   data-bs-toggle="modal"

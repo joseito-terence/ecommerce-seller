@@ -79,6 +79,7 @@ function ProductForm({ product }) {
     return () => {
       modalCloseBtn.removeEventListener('click', resetForm)
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {                                           // this effect executes everytime the value of product changes. Think of it as a class constructor.
@@ -112,6 +113,7 @@ function ProductForm({ product }) {
         })
         .catch(err => console.error(err))
     }
+    // eslint-disable-next-line
   }, [state.imagesUploaded]);
 
   return (

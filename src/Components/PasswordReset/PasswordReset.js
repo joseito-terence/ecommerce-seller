@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./PasswordReset.css";
-import { auth } from '../../firebase';
+// import { auth } from '../../firebase';
 
 function PasswordReset() {
 
@@ -11,8 +11,8 @@ function PasswordReset() {
   };
 
   const [state, setState] = useState(initialState);
-  const [isDisabled, setIsDisabled] = useState(true);
-
+  // const [isDisabled, setIsDisabled] = useState(true);
+  const [ isDisabled ] = useState(true);
   const handleChange = ({ target }) => {
     setState({ ...state, [target.name]: target.value });
   };

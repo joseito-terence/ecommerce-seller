@@ -98,7 +98,7 @@ function UserUpdate() {
         });
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [displayName, uid]);
 
   return (
     <div className="UpdateUser">
