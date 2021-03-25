@@ -35,15 +35,15 @@ function deleteFromIndex(objectID) {
 
 // Reset Index. (Clear all items in the index)
 function resetIndex() { 
-  if (confirm('This will clear the whole index. Do you confirm?')) {
+  if (window.confirm('This will clear the whole index. Do you confirm?')) {
     index.clearObjects()
       .then(() =>
-        res.send({
+        console.log({
           status: "Success",
           message: "All products deleted from index.",
         })
       )
-      .catch((err) => res.send(err));
+      .catch((err) => console.log(err));
   }
 }
 
