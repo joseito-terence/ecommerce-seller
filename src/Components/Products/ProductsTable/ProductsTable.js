@@ -4,6 +4,7 @@ import './ProductsTable.css';
 import Modal from '../../Modal';
 import ViewImages from './ViewImages';
 import UpdateProduct from '../UpdateProduct';
+import { deleteFromIndex } from '../../../Utilities/indexing';
 
 function ProductsTable() {
   const [products, setProducts] = useState([]);
@@ -36,10 +37,13 @@ function ProductsTable() {
     if(window.confirm('Do you want to delete?')){
       let promises = images.map(image => storage.refFromURL(image).delete());   // map all the promises into an array
 
-      return Promise.all(promises).then(() => {         // execute once all promises are resolved.
+      Promise.all(promises).then(() => {         // execute once all promises are resolved.
         db.doc(`products/${id}`)                        // i.e delete the record from the database.
           .delete()
-          .then(() => console.log('Delete Successful'))
+          .then(() => {
+            console.log('Delete Successful')
+            deleteFromIndex(id);      
+          })
           .catch(error => console.log(error));
       });
     }

@@ -12,7 +12,12 @@ function saveToIndex(product) {
    * If the objectID is specified but does not exist, the record is created
    * If the objectID is not specified, the method returns an error
    */
-  index.saveObject(product)
+  index.saveObject({
+    objectID: product.id,
+    ...product,
+    price: Number(product.price),
+    images: product.images[0],
+  })
     .then(({ objectID }) => 
       console.log(`${objectID} indexed.`)
     )
@@ -30,15 +35,15 @@ function deleteFromIndex(objectID) {
 
 // Reset Index. (Clear all items in the index)
 function resetIndex() { 
-  if (confirm('This will clear the whole index. Do you confirm?')) {
+  if (window.confirm('This will clear the whole index. Do you confirm?')) {
     index.clearObjects()
       .then(() =>
-        res.send({
+        console.log({
           status: "Success",
           message: "All products deleted from index.",
         })
       )
-      .catch((err) => res.send(err));
+      .catch((err) => console.log(err));
   }
 }
 

@@ -3,6 +3,7 @@ import './UpdateProduct.css';
 import db, { auth, storage } from '../../../firebase';
 import ImageUploader from './ImageUploader';
 import TagsInput from '../TagsInput';
+import { saveToIndex } from '../../../Utilities/indexing';
 
 function UpdateProduct({ product }) {
   return (
@@ -106,6 +107,8 @@ function ProductForm({ product }) {
             .update({ title, description, tags, stock, price, category, images, sellerId: uid })           // add new product to db
         })
         .then(() => {                     // on success
+          const { id, title, description, tags, stock, price, category, images } = state;
+          saveToIndex({ id, title, description, tags, stock, price, category, images })
           setIsDisabled(false);           // enable the fields
           setState(initialState);         // reset state
           closeBtn.current.click();       // close the modal.

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import db, { auth } from '../../../firebase';
 import ImageUploader from './ImageUploader';
 import TagsInput from '../TagsInput';
+import { saveToIndex } from '../../../Utilities/indexing';
 
 function AddProducts() {
   const initialState = {
@@ -41,11 +42,12 @@ function AddProducts() {
       console.log('upload to firestore>>>',state);
 
       db.collection('products')
-        .add({ ...state, sellerId: uid })                       // add new product to db
-        .then(() => {                     // on success
-          setIsDisabled(false);           // enable the fields
-          setState(initialState);         // reset state
-          closeBtn.current.click();       // close the modal.
+        .add({ ...state, price: Number(state.price), sellerId: uid })   // add new product to db
+        .then(docRef => {                             // on success
+          saveToIndex({ id: docRef.id, ...state })    // save product to index
+          setIsDisabled(false);                       // enable the fields
+          setState(initialState);                     // reset state
+          closeBtn.current.click();                   // close the modal.
           console.log('uploaded')
         })
         .catch(err => console.log(err));
