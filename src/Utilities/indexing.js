@@ -12,7 +12,12 @@ function saveToIndex(product) {
    * If the objectID is specified but does not exist, the record is created
    * If the objectID is not specified, the method returns an error
    */
-  index.saveObject(product)
+  index.saveObject({
+    objectID: product.id,
+    ...product,
+    price: Number(product.price),
+    images: product.images[0],
+  })
     .then(({ objectID }) => 
       console.log(`${objectID} indexed.`)
     )
