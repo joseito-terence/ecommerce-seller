@@ -16,8 +16,8 @@ function Header() {
             />
           </Link>
 
-          {/*<NavItem text="Dashboard" link="/" />*/}
           <NavItem text="Dashboard" link="/" />
+          <NavItem text="Orders" link="/orders" />
           <NavItem text="View Details" link="/user" />
 
         </div>

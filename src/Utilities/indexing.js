@@ -34,6 +34,7 @@ function deleteFromIndex(objectID) {
 }
 
 // Reset Index. (Clear all items in the index)
+// eslint-disable-next-line
 function resetIndex() { 
   if (window.confirm('This will clear the whole index. Do you confirm?')) {
     index.clearObjects()
