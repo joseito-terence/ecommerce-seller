@@ -1,6 +1,7 @@
 import React from "react";
 
 function Stage3({ currentStep, state, handleChange }) {
+  /*
   const tenYears = () => {
     const currYear = new Date().getFullYear();
     const list = [];
@@ -9,6 +10,7 @@ function Stage3({ currentStep, state, handleChange }) {
     }
     return list;
   };
+  */
 
   return currentStep !== 3 ? null : (
     <div id="stage3 container">
@@ -25,23 +27,23 @@ function Stage3({ currentStep, state, handleChange }) {
             <input
               type="text"
               className="form-control"
-              id="cardHoldersName"
-              placeholder="Card Holder Name"
+              id="accHoldersName"
+              placeholder="Account Holder's Name"
               onChange={handleChange}
-              value={state.cardHoldersName}
+              value={state.accHoldersName}
               required
               />
 
-            <label htmlFor="cardHoldersName">Card Holder's Name</label>
+            <label htmlFor="accHoldersName">Account Holder's Name</label>
           </div>
         </div>
       </div>
 
       <div className="row g-2 mb-2">
-        <div className="col">
+        <div className="col-4">
           <div className="form-floating">
 
-            <input
+            {/* <input 
               type="number"
               className="form-control"
               id="cardNumber"
@@ -53,31 +55,43 @@ function Stage3({ currentStep, state, handleChange }) {
               //Visa || Mastercard
               //pattern="/^(?:4[0-9]{12}(?:[0-9]{3})?)$/ | /^(?:5[1-5][0-9]{14})$/ "
               required
+            />*/}
+            <input 
+              type="text"
+              className="form-control"
+              id="branchIFSC"
+              placeholder="Branch IFSC Code"
+              pattern="^[A-Za-z]{4}[a-zA-Z0-9]{7}$"
+              title="Example: AAAA0999999, XXXX099XX9XX"
+              onChange={handleChange}
+              value={state.branchIFSC}
             />
 
-            <label htmlFor="cardNumber">Card Number</label>
+            <label htmlFor="branchIFSC">Branch IFSC Code</label>
           </div>
         </div>
-        <div className="col-2">
+        <div className="col">
           <div className="form-floating">
 
             <input
-              type="number"
+              type="text"
               className="form-control"
-              id="cvv"
-              placeholder="CVV"
-              minLength="3"
-              maxLength="3"
+              id="accNumber"
+              placeholder="Account Number"
+              minLength={8}
+              maxLength={18}
+              title="Usually 8-18 digits"
               onChange={handleChange}
-              value={state.cvv}
+              value={state.accNumber}
               required
             />
 
-            <label htmlFor="cvv">CVV</label>
+            <label htmlFor="accNumber">Account Number</label>
           </div>
         </div>
       </div>
 
+{/*  
       <div className="row mb-2">
         <div className="col-3">
           <h5>Expiry Date</h5>
@@ -131,6 +145,7 @@ function Stage3({ currentStep, state, handleChange }) {
           </div>
         </div>
       </div>
+      */}
     </div>
   );
 }

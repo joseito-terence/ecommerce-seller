@@ -5,6 +5,7 @@ import Modal from "../Modal";
 import ChangePassword from "./ChangePassword";
 
 function UserUpdate() {
+  /*
   const tenYears = () => {
     const currYear = new Date().getFullYear();
     const list = [];
@@ -13,6 +14,7 @@ function UserUpdate() {
     }
     return list;
   };
+  */
 
   const initialState = {
     fname: "",
@@ -27,11 +29,16 @@ function UserUpdate() {
     state: "",
     country: "",
 
+    accHoldersName: "",
+    branchIFSC: "",
+    accNumber: "",
+    /*
     cardHoldersName: "",
     cardNumber: "",
     cvv: "",
     month: "",
     year: "",
+    */
   };
 
   const [state, setState] = useState(initialState);
@@ -69,11 +76,16 @@ function UserUpdate() {
           country: state.country,
         },
         billingInfo: {
+          accHoldersName: state.accHoldersName,
+          branchIFSC: state.branchIFSC,
+          accNumber: state.accNumber,
+          /*
           cardHoldersName: state.cardHoldersName,
           cardNumber: state.cardNumber,
           cvv: state.cvv,
           month: state.month,
           year: state.year,
+          */
         },
       })
       .then(() => {
@@ -162,7 +174,7 @@ function UserUpdate() {
           </div>
 
           <div className="row mb-2">
-            <div className="col">
+            <div className="col-6">
               <label className="text-end fs-5" htmlFor="phone">
                 Phone No.
               </label>
@@ -309,6 +321,63 @@ function UserUpdate() {
             </div>
           </div>
 
+          <div className="row mb-2">
+            <div className="col">
+              <label className="text-end fs-5" htmlFor="accHoldersName">
+                Account Holders Name
+              </label>
+
+              <input
+                type="text"
+                name="accHoldersName"
+                className="form-control"
+                value={state.accHoldersName}
+                onChange={handleChange}
+                disabled={isDisabled}
+                required
+              />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col">
+              <label className="text-end fs-5" htmlFor="accNumber">
+                Account Number
+              </label>
+
+              <input
+                type="text"
+                name="accNumber"
+                className="form-control"
+                value={state.accNumber}
+                minLength={8}
+                maxLength={18}
+                title="Usually 8-18 digits"
+                onChange={handleChange}
+                disabled={isDisabled}
+                required
+              />
+            </div>
+
+            <div className="col">
+              <label className="text-end fs-5" htmlFor="branchIFSC">
+                Branch IFSC Code
+              </label>
+
+              <input
+                type="text"
+                name="branchIFSC"
+                className="form-control"
+                pattern="^[A-Za-z]{4}[a-zA-Z0-9]{7}$"
+                title="Example: AAAA0999999, XXXX099XX9XX"
+                value={state.branchIFSC}
+                onChange={handleChange}
+                disabled={isDisabled}
+                required
+              />
+            </div>
+          </div>
+
+          {/* 
           <div className="row">
             <div className="col">
               <label className="text-end fs-5" htmlFor="cardHoldersName">
@@ -415,6 +484,7 @@ function UserUpdate() {
               </select>
             </div>
           </div>
+          */}
 
           <div className="row mb-5">
             <div className="col d-flex justify-content-center">
@@ -436,6 +506,7 @@ function UserUpdate() {
               )}
             </div>
           </div>
+        
         </div>
       </form>
     </div>

@@ -25,11 +25,14 @@ function SignUp() {
     state: '', 
     country: '', 
 
-    cardHoldersName: '', 
-    cardNumber: '',
-    cvv: '',
-    month: '', 
-    year: '',
+    accHoldersName: '',
+    branchIFSC: '',
+    accNumber: '',
+    //cardHoldersName: '', 
+    //cardNumber: '',
+    //cvv: '',
+    //month: '', 
+    //year: '',
   });
   const progressBar = useRef(); // progress on the stages in the form.
   const [error, setError] = useState();
@@ -93,11 +96,14 @@ function SignUp() {
             country: state.country,
           },
           billingInfo: {
-            cardHoldersName: state.cardHoldersName, 
+            accHoldersName: state.accHoldersName,
+            branchIFSC: state.branchIFSC, 
+            accNumber: state.accNumber,
+            /*cardHoldersName: state.cardHoldersName, 
             cardNumber: state.cardNumber,
             cvv: state.cvv,
             month: state.month, 
-            year: state.year,
+            year: state.year,*/
           }
         })
         .then(() => {
