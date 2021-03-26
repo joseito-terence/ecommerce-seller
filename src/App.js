@@ -9,6 +9,7 @@ import PasswordReset from './Components/PasswordReset';
 import Header from './Components/Header';
 import Products from './Components/Products';
 import User from './Components/User';
+import Orders from './Components/Orders';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -33,7 +34,7 @@ function App() {
           <Header />
           <Switch>
             <Route path='/user' component={User} />
-            {/* <Route path='/products' component={Products} /> */}
+            <Route path='/orders' component={Orders} />
             <Route path='/' component={Products} />
           </Switch>
         </>
