@@ -92,6 +92,7 @@ function UserUpdate() {
         auth.currentUser.updateProfile({
           displayName: `${state.fname} ${state.lname}`,
         });
+        setIsDisabled(true);
       })
       .catch((err) => console.log(err));
   };

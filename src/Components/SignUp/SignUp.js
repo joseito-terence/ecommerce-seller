@@ -149,12 +149,12 @@ function SignUp() {
             <Stage1 currentStep={currentStep} state={state} handleChange={handleChange} />
             <Stage2 currentStep={currentStep} state={state} handleChange={handleChange} />
             <Stage3 currentStep={currentStep} state={state} handleChange={handleChange} />
-            <Stage4 currentStep={currentStep} />
+            <Stage4 currentStep={currentStep} error={error} />
           </div>
           
           <div className="signUp__actions">
             <button 
-              className={`signUp__prevBtn btn btn-secondary ${(!(currentStep > 1) || (currentStep === 4)) && 'd-none' }`}
+              className={`signUp__prevBtn btn btn-secondary ${((!(currentStep > 1) || (currentStep === 4)) && !error) && 'd-none' }`}
               onClick={prev}
             >
               Previous
