@@ -61,7 +61,7 @@ function Stage3({ currentStep, state, handleChange }) {
               className="form-control"
               id="branchIFSC"
               placeholder="Branch IFSC Code"
-              pattern="^[A-Za-z]{4}[a-zA-Z0-9]{7}$"
+              // pattern="^[A-Za-z]{4}[a-zA-Z0-9]{7}$"
               title="Example: AAAA0999999, XXXX099XX9XX"
               onChange={handleChange}
               value={state.branchIFSC}
