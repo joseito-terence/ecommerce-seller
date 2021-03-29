@@ -61,6 +61,7 @@ function Stage2({ currentStep, state, handleChange }) {
               id="pincode"
               pattern="^[\d]{6}$"
               placeholder="Pincode"
+              title="Pincode has to be 6 digits"
               onChange={handleChange}
               value={state.pincode}
               required

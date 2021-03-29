@@ -258,6 +258,7 @@ function UserUpdate() {
                 name="pincode"
                 className="form-control"
                 pattern="^[\d]{6}$"
+                title="Pincode has to be 6 digits"
                 value={state.pincode}
                 onChange={handleChange}
                 disabled={isDisabled}
