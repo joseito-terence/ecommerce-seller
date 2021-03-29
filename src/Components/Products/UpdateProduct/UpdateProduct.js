@@ -50,7 +50,7 @@ function ProductForm({ product }) {
   }
 
   const resetForm = () => {
-    // console.log({...initialState, ...originalProduct});
+     console.log({...initialState, ...originalProduct});
     setState({...initialState, ...originalProduct});
   }
 
