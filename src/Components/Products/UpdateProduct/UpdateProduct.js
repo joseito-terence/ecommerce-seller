@@ -34,7 +34,7 @@ function ProductForm({ product }) {
   const [shouldUploadImgs, setShouldUploadImgs] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const closeBtn = useRef();
-  const categories = ['Appliances', 'Apps & Game s', 'Baby', 'Beauty', 'Books', 'Car & Motorbike', 'Clothing & Accessories', 'Collectibles', 'Computers & Accessories', 'Electronics', 'Furniture', 'Garden & Outdoors', 'Grocery & Gourmet Foods', 'Health & Personal Care', 'Home & Kitchen', 'Industrial & Scientific', 'Jewellery', 'Luggage & Bags', 'Movies & TV Shows', 'Music', 'Musical Instruments', 'Office Products', 'Pet Supplies', 'Shoes & Handbags', 'Software', 'Sports, Fitness & Outdoors', 'Tools & Home Improvement', 'Toys & Games', 'Watches'];   
+  const categories = ['Appliances', 'Apps & Games', 'Baby', 'Beauty', 'Books', 'Car & Motorbike', 'Clothing & Accessories', 'Collectibles', 'Computers & Accessories', 'Electronics', 'Furniture', 'Garden & Outdoors', 'Grocery & Gourmet Foods', 'Health & Personal Care', 'Home & Kitchen', 'Industrial & Scientific', 'Jewellery', 'Luggage & Bags', 'Movies & TV Shows', 'Music', 'Musical Instruments', 'Office Products', 'Pet Supplies', 'Shoes & Handbags', 'Software', 'Sports, Fitness & Outdoors', 'Tools & Home Improvement', 'Toys & Games', 'Watches'];   
   const uid = auth.currentUser.uid;  
 
   const handleChange = ({ target }) => {
@@ -50,7 +50,7 @@ function ProductForm({ product }) {
   }
 
   const resetForm = () => {
-    // console.log({...initialState, ...originalProduct});
+    // console.log(originalProduct);
     setState({...initialState, ...originalProduct});
   }
 
@@ -61,7 +61,7 @@ function ProductForm({ product }) {
   }
 
   // console.log(state);
-  // console.log(product);
+  // console.log(originalProduct);
 
   const deleteImages = async () => {
     const promises = state.deleteQueue.map(url => storage.refFromURL(url).delete());
@@ -76,18 +76,21 @@ function ProductForm({ product }) {
 
   useEffect(() => {   // for execution at component mount.    RESET FORM ON MODAL CLOSE.
     const modalCloseBtn = document.querySelector('#updateProductModal .btn-close');
-    modalCloseBtn.addEventListener('click', resetForm);
+    const closeFn = () => { 
+      closeBtn.current.click();       // virtually click the cancel button on close.
+    };
+    modalCloseBtn.addEventListener('click', closeFn);
     return () => {
-      modalCloseBtn.removeEventListener('click', resetForm)
+      modalCloseBtn.removeEventListener('click', closeFn);
     }
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {                                           // this effect executes everytime the value of product changes. Think of it as a class constructor.
-    if(product){
+  useEffect(() => {                                           // this effect executes everytime the value of product changes. Think of it as a class constructor
+    // if(product){
       setOriginalProduct(product);                            // preserve a copy of the product
       setState(prevState => ({ ...prevState, ...product}));   // set product to state.
-    }
+    // }
   }, [product]);
 
   useEffect(() => {
