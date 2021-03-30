@@ -56,12 +56,12 @@ function Stage2({ currentStep, state, handleChange }) {
           <div className="form-floating">
 
             <input
-              type="number"
+              type="text"
               className="form-control"
               id="pincode"
-              minLength={6}
-              maxLength={6}
+              pattern="^[\d]{6}$"
               placeholder="Pincode"
+              title="Pincode has to be 6 digits"
               onChange={handleChange}
               value={state.pincode}
               required

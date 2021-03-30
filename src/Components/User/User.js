@@ -188,7 +188,7 @@ function UserUpdate() {
                 onChange={handleChange}
                 disabled={isDisabled}
                 required
-                pattern="^\d+$"
+                pattern="^[\d]{10}$"
                 title="Only Numbers allowed."
               />
             </div>
@@ -254,9 +254,11 @@ function UserUpdate() {
               </label>
 
               <input
-                type="number"
+                type="text"
                 name="pincode"
                 className="form-control"
+                pattern="^[\d]{6}$"
+                title="Pincode has to be 6 digits"
                 value={state.pincode}
                 onChange={handleChange}
                 disabled={isDisabled}
@@ -265,7 +267,7 @@ function UserUpdate() {
             </div>
 
             <div className="col">
-              <label className="text-end fs-5" htmlFor="city">
+              <label className="text-end fs-5" htmlFor="city">    
                 City
               </label>
 
