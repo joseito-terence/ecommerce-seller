@@ -61,7 +61,7 @@ function ProductForm({ product }) {
     setIsDisabled(true);         // disable form input.
   }
 
-  console.log(state);
+  // console.log(state);
   // console.log(originalProduct);
 
   const deleteImages = async () => {

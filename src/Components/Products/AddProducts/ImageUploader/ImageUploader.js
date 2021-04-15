@@ -57,17 +57,29 @@ function ImageUploader({ shouldUploadImgs, setShouldUploadImgs, dispatchImageURL
   }
   // --------------------------------------------------------
 
-
   const getDownloadURL = (url) => {
     // function to get the downloadUrl from the UploaderTask component.
     setDownloadURLs(downloadURLs => [...downloadURLs, url ]);
+  }
+
+  const reorderImages = images => {       // set main image to position 0 in the array.
+
+    const mainImgUrl = images.filter((img, id) => img.indexOf('main') !== -1)[0];       // 1. find image with 'main' keyword
+    if(mainImgUrl) {
+      const mainImgIndex = images.indexOf(mainImgUrl);                                 // 2. get it's index
+  
+      images = [...images.slice(0, mainImgIndex), ...images.slice(mainImgIndex + 1)];  // 3. remove the main image url from array
+      images.unshift(mainImgUrl);
+    }
+
+    return images;
   }
 
   useEffect(() => {
     if(downloadURLs.length === images.length && images.length !== 0){
       setShouldUploadImgs(false);
       setImages([]);
-      dispatchImageURLs(downloadURLs);
+      dispatchImageURLs(reorderImages(downloadURLs));                 // reorder image urls before dispatch.
       setDownloadURLs([]);
     }
     // eslint-disable-next-line
