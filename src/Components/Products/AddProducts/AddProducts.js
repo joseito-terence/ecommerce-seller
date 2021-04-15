@@ -8,6 +8,7 @@ function AddProducts() {
   const initialState = {
     title: '', 
     description: '', 
+    details: '',
     tags: [], 
     stock: '',   // units_in_stock
     price: '',
@@ -35,7 +36,7 @@ function AddProducts() {
     setIsDisabled(true);         // disable form input.
   }
 
-  //console.log(state);
+  // console.log(state);
 
   useEffect(() => {
     if(state.images.length !== 0){
@@ -67,7 +68,13 @@ function AddProducts() {
         {/* DESCRIPTION */}
         <div className="mb-3">
           <label className="text-end fs-5" htmlFor="description">Description</label>
-          <textarea type="text" name='description' className='form-control' rows='5' value={state.description} onChange={handleChange} disabled={isDisabled} required/>
+          <textarea type="text" name='description' className='form-control' rows='2' value={state.description} onChange={handleChange} disabled={isDisabled} required/>
+        </div>
+
+        {/* DETAILS */}
+        <div className="mb-3">
+          <label className="text-end fs-5" htmlFor="description">Details <span className="text-muted fs-6">(Add each point on a new line.)</span></label>
+          <textarea type="text" name='details' className='form-control' rows='5' value={state.details} onChange={handleChange} disabled={isDisabled} required/>
         </div>
         
         {/* STOCK */}

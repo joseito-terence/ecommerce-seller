@@ -21,6 +21,7 @@ function ProductForm({ product }) {
   const initialState = {
     title: '', 
     description: '', 
+    details: '',
     tags: [], 
     stock: '',   // units_in_stock
     price: '',
@@ -60,7 +61,7 @@ function ProductForm({ product }) {
     setIsDisabled(true);         // disable form input.
   }
 
-  // console.log(state);
+  console.log(state);
   // console.log(originalProduct);
 
   const deleteImages = async () => {
@@ -87,10 +88,8 @@ function ProductForm({ product }) {
   }, []);
 
   useEffect(() => {                                           // this effect executes everytime the value of product changes. Think of it as a class constructor
-    // if(product){
       setOriginalProduct(product);                            // preserve a copy of the product
-      setState(prevState => ({ ...prevState, ...product}));   // set product to state.
-    // }
+      setState({ ...initialState, ...product});               // set product to state.
   }, [product]);
 
   useEffect(() => {
@@ -105,13 +104,13 @@ function ProductForm({ product }) {
       deleteImages()
         .then(() => {
           console.log('images deleted');
-          const { id, title, description, tags, stock, price, category, images } = state;
+          const { id, title, description, details, tags, stock, price, category, images } = state;
           return db.doc(`products/${id}`)
-            .update({ title, description, tags, stock, price, category, images, sellerId: uid })           // add new product to db
+            .update({ title, description, details, tags, stock, price, category, images, sellerId: uid })           // add new product to db
         })
         .then(() => {                     // on success
-          const { id, title, description, tags, stock, price, category, images } = state;
-          saveToIndex({ id, title, description, tags, stock, price, category, images })
+          const { id, title, description, details, tags, stock, price, category, images } = state;
+          saveToIndex({ id, title, description, details, tags, stock, price, category, images })
           setIsDisabled(false);           // enable the fields
           setState(initialState);         // reset state
           closeBtn.current.click();       // close the modal.
@@ -135,6 +134,12 @@ function ProductForm({ product }) {
         <div className="mb-3">
           <label className="text-end fs-5" htmlFor="description">Description</label>
           <textarea type="text" name='description' className='form-control' rows='5' value={state.description} onChange={handleChange} disabled={isDisabled} required/>
+        </div>
+
+        {/* DETAILS */}
+        <div className="mb-3">
+          <label className="text-end fs-5" htmlFor="description">Details <span className="text-muted fs-6">(Add each point on a new line.)</span></label>
+          <textarea type="text" name='details' className='form-control' rows='5' value={state.details} onChange={handleChange} disabled={isDisabled} required/>
         </div>
         
         {/* STOCK */}
