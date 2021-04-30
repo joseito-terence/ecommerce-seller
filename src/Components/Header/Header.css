@@ -26,6 +26,7 @@
   object-fit: contain;
   border-radius: 50%;
   margin: 0 25px;
+  overflow: hidden;
 }
 
 .header__logoutBtn{

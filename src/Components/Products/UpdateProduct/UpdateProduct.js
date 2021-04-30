@@ -90,6 +90,7 @@ function ProductForm({ product }) {
   useEffect(() => {                                           // this effect executes everytime the value of product changes. Think of it as a class constructor
       setOriginalProduct(product);                            // preserve a copy of the product
       setState({ ...initialState, ...product});               // set product to state.
+    // eslint-disable-next-line
   }, [product]);
 
   useEffect(() => {

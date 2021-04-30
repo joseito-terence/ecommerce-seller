@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./Header.css";
 import { auth } from '../../firebase';
+import { ReactComponent as Logo } from '../../logo001SVG.svg';
 
 function Header() {
   return (
@@ -9,11 +10,9 @@ function Header() {
       <div className="header__container">
         <div>
           <Link to="/">
-            <img
-              className="header__logo"
-              src="https://josephreisigl.files.wordpress.com/2015/08/amazonlogo.png"
-              alt="logo"
-            />
+            <div className="header__logo">
+              <Logo />
+            </div>
           </Link>
 
           <NavItem text="Dashboard" link="/" />
