@@ -54,7 +54,7 @@ function ProductsTable() {
       <table className="productsTable table table-striped table-hover">
         <thead>
           <tr className="table-dark">
-            <th>Product Id</th>
+            <th>#</th>
             <th>Title</th>
             <th>Description</th>
             <th>Category</th>
@@ -66,9 +66,10 @@ function ProductsTable() {
           </tr>
         </thead>
         <tbody>
-          {products.map(product => (
+          {products.map((product, i) => (
             <tr key={product.id}>
-              <td>{product.id}</td>
+              <td>{i + 1}</td>
+              <td className="d-none">{product.id}</td>
               <td>{product.title}</td>
               <td className='text-wrap'>{product.description}</td>
               <td>{product.category}</td>
